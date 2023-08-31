@@ -1,0 +1,53 @@
+---
+title: "Homework 0"
+author: "Caitlin Cheung"
+format: html
+editor: visual
+---
+
+# Explanation
+
+This Quarto document plots a quadratic function, f(x), along the interval x = (-5,5) and outputs the function's real zeros. In this document, f(x)= ax^2^ + bx + c, where the user can select the values for the variables a, b, and c in the code. The function is then plotted on the graph as a solid line along with a separate dashed line representing the line y=0. The intersection of these two lines denotes the function's real zeros. The zeros are then solved for using the quadratic formula and outputted below the plot as either two solutions, one solution, or no solutions.
+
+# Plot
+
+```{r}
+#| echo: false
+
+# variables to be edited by the user 
+a <- 1
+b <- 3 
+c <- 2
+
+# plot f(x) 
+x <- seq(-5, 5, 0.1 )
+f_x <- a*x^2 + b*x + c
+plot (x, f_x, type = "l" )
+abline(h = 0, lty = 2)
+
+```
+
+# Solutions
+
+```{r}
+#| echo: false
+# Solution 1
+s1 <- suppressWarnings((-b + sqrt(b^2-4*a*c))/(2*a))
+
+# Solution 2
+s2 <- suppressWarnings((-b - sqrt(b^2-4*a*c))/(2*a))
+
+if(s1 == s2) { 
+  s2 = NaN
+}
+# print solutions 
+if(is.nan(s1) & is.nan(s2)) { 
+    paste("No Solutions")
+  } else if (is.nan(s1) ) { 
+    paste("One Solution: x = ", s2)
+  } else if (is.nan(s2)) { 
+    paste("One Solution: x = ", s1)
+  } else { 
+    paste("Two Solutions: x = ", s1, " and x = ", s2)
+  }
+```
